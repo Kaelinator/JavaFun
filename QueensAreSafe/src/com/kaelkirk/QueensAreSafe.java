@@ -42,7 +42,12 @@ public class QueensAreSafe {
     HashMap<String, String> classArgs = new HashMap<String, String>();
     classArgs.put("className", name);
 
-    return Code.CLASS.setArgs(classArgs).toLines();
+    HashMap<String, String> printlnArgs = new HashMap<String, String>();
+    printlnArgs.put("contents", "Hello World!");
+
+    return Code.CLASS.setArgs(classArgs)
+    .write(Code.MAIN.write(Code.PRINTLN.setArgs(printlnArgs)))
+    .toLines();
   }
 
   private static int parseN(String[] args) {

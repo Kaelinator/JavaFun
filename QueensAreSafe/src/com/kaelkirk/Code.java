@@ -28,7 +28,7 @@ public enum Code {
    * required arguments: <br />
    * content - what to print
    */
-  PRINTLN(1, "System.out.println(\"{{content}}\")");
+  PRINTLN(1, "System.out.println(\"&&contents&&\");");
 
   private ArrayList<String> lines;
   private Map<String, String> args;
