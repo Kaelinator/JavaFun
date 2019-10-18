@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class QueensAreSafe {
@@ -13,10 +13,10 @@ public class QueensAreSafe {
   public static void main(String[] args) {
 
     int n = parseN(args);
-    System.out.printf("You chose %dx%d board.", n, n);
+    System.out.printf("You chose %dx%d board.\n", n, n);
 
-    String name = String.format("QueensAreSafe%dx%d.java", n, n);
-    List<String> code = generateCode(n);
+    String name = String.format("QueensAreSafe%dx%d", n, n);
+    List<String> code = generateCode(n, name);
     Path file = writeToFile(code, name);
 
     System.out.printf("Wrote file: %s", file.toAbsolutePath());
@@ -24,7 +24,7 @@ public class QueensAreSafe {
 
   private static Path writeToFile(List<String> code, String name) {
 
-    Path file = Paths.get(name);
+    Path file = Paths.get(name + ".java");
 
     try {
       Files.write(file, code, StandardCharsets.UTF_8);
@@ -37,10 +37,12 @@ public class QueensAreSafe {
     return file;
   }
 
-  private static List<String> generateCode(int n) {
-    ArrayList<String> lines = new ArrayList<>();
-    lines.add("// TODO");
-    return lines;
+  private static List<String> generateCode(int n, String name) {
+
+    HashMap<String, String> classArgs = new HashMap<String, String>();
+    classArgs.put("className", name);
+
+    return Code.CLASS.setArgs(classArgs).toLines();
   }
 
   private static int parseN(String[] args) {

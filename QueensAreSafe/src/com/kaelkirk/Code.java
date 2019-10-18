@@ -15,7 +15,7 @@ public enum Code {
    * required arguments: <br />
    * className - name of the class
    */
-  CLASS(1, "public class {{className}} {", "}"),
+  CLASS(1, "public class &&className&& {", "}"),
 
   /**
    * Main method <br />
@@ -60,11 +60,12 @@ public enum Code {
   /**
    * @param args != null
    */
-  public void setArgs(Map<String, String> args) {
+  public Code setArgs(Map<String, String> args) {
     if (args == null)
       throw new IllegalArgumentException("Failed: args != null");
 
     this.args = args;
+    return this;
   }
 
   /**
@@ -87,10 +88,11 @@ public enum Code {
     for (int i = 0; i < lines.size(); i++) {
       String line = lines.get(i);
 
-      for (String param : args.keySet())
-        line.replaceAll("{{" + param + "}}", args.get(param));
+      for (String param : args.keySet()) {
+        line = line.replaceAll("&&" + param + "&&", args.get(param));
+      }
 
-      if (line.matches("{{\\w+}}"))
+      if (line.matches(".*&&\\w+&&.*"))
         throw new IllegalArgumentException(this + " requires more arguments.");
 
       lines.set(i, line);
