@@ -1,6 +1,7 @@
 package com.kaelkirk;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -9,14 +10,32 @@ import java.util.Map;
  */
 public enum Code {
 
-  MAIN(new ArrayList<String>(), 2);
+  /**
+   * Class declaration <br />
+   * required arguments: <br />
+   * className - name of the class
+   */
+  CLASS(1, "public class {{className}} {", "}"),
+
+  /**
+   * Main method <br />
+   * no required arguments.
+   */
+  MAIN(1, "public static void main(String[] args) {", "}"),
+
+  /**
+   * println statement <br />
+   * required arguments: <br />
+   * content - what to print
+   */
+  PRINTLN(1, "System.out.println(\"{{content}}\")");
 
   private ArrayList<String> lines;
   private Map<String, String> args;
   private int innerLine;
 
-  Code(ArrayList<String> lines, int innerLine) {
-    this.lines = lines;
+  Code(int innerLine, String... lines) {
+    this.lines = new ArrayList<String>(Arrays.asList(lines));
     this.innerLine = innerLine;
     args = null;
   }
@@ -58,7 +77,7 @@ public enum Code {
   /**
    * uses templating to substitude in user-given args
    * 
-   * @param args != null
+   * @param args  != null
    * @param lines != null
    */
   private ArrayList<String> substituteArgs(ArrayList<String> lines, Map<String, String> args) {
