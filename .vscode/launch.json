@@ -2,9 +2,10 @@
   "configurations": [
     {
       "type": "java",
-      "name": "CodeLens (Launch) - QueensAreSafe",
+      "name": "QueensAreSafe",
       "request": "launch",
-      "mainClass": "com.kaelkirk.QueensAreSafe"
+      "mainClass": "com.kaelkirk.QueensAreSafe",
+      "args": "ayyy BB"
     }
   ]
 }

@@ -1,7 +1,9 @@
 package com.kaelkirk;
 
+import java.util.Arrays;
+
 public class QueensAreSafe {
-    public static void main(String[] args) throws Exception {
-        System.out.println("Hello Java");
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(args));
     }
 }
