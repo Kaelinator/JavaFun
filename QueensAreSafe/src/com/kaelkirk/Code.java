@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Makes writing code with code feel less meta
@@ -30,6 +31,8 @@ public enum Code {
    */
   PRINTLN(1, "System.out.println(\"&&contents&&\");");
 
+  private static String INDENTATION = "  ";
+
   private ArrayList<String> lines;
   private Map<String, String> args;
   private int innerLine;
@@ -44,7 +47,7 @@ public enum Code {
    * Embeds code into this code
    */
   public Code write(Code code) {
-    lines.addAll(innerLine, code.toLines());
+    lines.addAll(innerLine, code.toIndentedLines());
     innerLine += code.length();
     return this;
   }
@@ -53,7 +56,7 @@ public enum Code {
    * Embeds line into this code
    */
   public Code write(String line) {
-    lines.add(innerLine++, line);
+    lines.add(innerLine++, INDENTATION + line);
     return this;
   }
 
@@ -103,5 +106,10 @@ public enum Code {
 
   public List<String> toLines() {
     return (args == null) ? lines : substituteArgs(lines, args);
+  }
+
+  private List<String> toIndentedLines() {
+    lines = (args == null) ? lines : substituteArgs(lines, args);
+    return lines.stream().map(str -> INDENTATION + str).collect(Collectors.toList());
   }
 }
