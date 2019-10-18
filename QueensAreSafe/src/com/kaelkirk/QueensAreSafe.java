@@ -1,6 +1,6 @@
-package app;
+package com.kaelkirk;
 
-public class App {
+public class QueensAreSafe {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello Java");
     }
