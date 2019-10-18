@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QueensAreSafe {
+
   public static void main(String[] args) {
 
     int n = parseN(args);
