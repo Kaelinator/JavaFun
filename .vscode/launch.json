@@ -5,7 +5,7 @@
       "name": "QueensAreSafe",
       "request": "launch",
       "mainClass": "com.kaelkirk.QueensAreSafe",
-      "args": "ayyy BB"
+      "args": "1"
     }
   ]
 }
