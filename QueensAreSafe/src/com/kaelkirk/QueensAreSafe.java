@@ -14,19 +14,31 @@ public class QueensAreSafe {
     int n = parseN(args);
     System.out.printf("You chose %dx%d board.", n, n);
 
+    String name = String.format("QueensAreSafe%dx%d.java", n, n);
     List<String> code = generateCode(n);
-    Path file = Paths.get("temp.java");
+    Path file = writeToFile(code, name);
+
+    System.out.printf("Wrote file: %s", file.toAbsolutePath());
+  }
+
+  private static Path writeToFile(List<String> code, String name) {
+
+    Path file = Paths.get(name);
+
     try {
       Files.write(file, code, StandardCharsets.UTF_8);
     } catch (IOException e) {
-      e.printStackTrace();
+      System.err.println(e.getCause());
+      System.err.println(e.getMessage());
+      System.err.println(e.toString());
     }
+
+    return file;
   }
 
   private static List<String> generateCode(int n) {
     ArrayList<String> lines = new ArrayList<>();
-    lines.add("oi, what up?");
-    lines.add("hi, I'm the second line");
+    lines.add("// TODO");
     return lines;
   }
 
