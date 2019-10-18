@@ -1,10 +1,33 @@
 package com.kaelkirk;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 public class QueensAreSafe {
   public static void main(String[] args) {
 
     int n = parseN(args);
     System.out.printf("You chose %dx%d board.", n, n);
+
+    List<String> code = generateCode(n);
+    Path file = Paths.get("temp.java");
+    try {
+      Files.write(file, code, StandardCharsets.UTF_8);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private static List<String> generateCode(int n) {
+    ArrayList<String> lines = new ArrayList<>();
+    lines.add("oi, what up?");
+    lines.add("hi, I'm the second line");
+    return lines;
   }
 
   private static int parseN(String[] args) {
@@ -22,7 +45,7 @@ public class QueensAreSafe {
     return n;
   }
 
-  public static void exitWithUsage() {
+  private static void exitWithUsage() {
     System.out.println("Usage: queensaresafe N");
     System.exit(1);
   }
