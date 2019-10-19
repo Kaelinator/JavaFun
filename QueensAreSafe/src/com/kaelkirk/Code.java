@@ -30,8 +30,23 @@ public enum Code {
    * content - what to print
    */
   PRINTLN(1, "System.out.println(&&contents&&);"),
-  
-  FORINT(1, "for (int &&var&& = 0; &&var&& < &&max&&; &&var&&++) {", "}");
+
+  /**
+   * declaration with initialization for an object <br />
+   * required arguments: <br />
+   * declaredType - the declared type of the object <br />
+   * var - identifier <br />
+   * type - the dynamic type of the object
+   */
+  NEW(1, "&&declaredType&& &&var&& = new &&type&&;"),
+
+  /**
+   * for int statement <br />
+   * required arguments: <br />
+   * var - identifier to loop over <br />
+   * max - maximum value (var < max)
+   */
+  FOR_INT(1, "for (int &&var&& = 0; &&var&& < &&max&&; &&var&&++) {", "}");
 
   private static String INDENTATION = "  ";
 
@@ -48,17 +63,24 @@ public enum Code {
   /**
    * Embeds code into this code
    */
-  public Code write(Code code) {
-    lines.addAll(innerLine, code.toIndentedLines());
-    innerLine += code.length();
+  public Code write(Code ...code) {
+
+    for (Code block : code) {
+      lines.addAll(innerLine, block.toIndentedLines());
+      innerLine += block.length();
+    }
+
     return this;
   }
 
   /**
    * Embeds line into this code
    */
-  public Code write(String line) {
-    lines.add(innerLine++, INDENTATION + line);
+  public Code write(String ...lines) {
+
+    for (String line : lines)
+      this.lines.add(innerLine++, INDENTATION + line);
+
     return this;
   }
 

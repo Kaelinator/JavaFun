@@ -42,18 +42,14 @@ public class QueensAreSafe {
     HashMap<String, String> classArgs = new HashMap<String, String>();
     classArgs.put("className", name);
 
-    HashMap<String, String> printlnArgs = new HashMap<String, String>();
-    printlnArgs.put("contents", "\"&&var&& = \" + &&var&&");
-
-    HashMap<String, String> forArgs = new HashMap<String, String>();
-    forArgs.put("var", "x");
-    forArgs.put("max", "10");
+    HashMap<String, String> board = new HashMap<>();
+    board.put("declaredType", "boolean[][]");
+    board.put("var", "board");
+    board.put("type", "boolean[8][8]");
 
     return Code.CLASS.setArgs(classArgs).write(
       Code.MAIN.write(
-        Code.FORINT.setArgs(forArgs).write(
-          Code.PRINTLN.setArgs(printlnArgs)
-        )
+        Code.NEW.setArgs(board)
       )
     ).toLines();
   }
