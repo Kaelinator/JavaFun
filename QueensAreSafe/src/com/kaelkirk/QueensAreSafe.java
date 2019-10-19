@@ -8,6 +8,9 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
+import com.kaelkirk.code.Code;
+import com.kaelkirk.code.CodeType;
+
 public class QueensAreSafe {
 
   public static void main(String[] args) {
@@ -47,12 +50,54 @@ public class QueensAreSafe {
     board.put("var", "board");
     board.put("type", "boolean[8][8]");
 
-    return Code.CLASS.setArgs(classArgs).write(
-      Code.MAIN.write(
-        Code.NEW.setArgs(board)
-      )
-    ).toLines();
+    return new Code(CodeType.CLASS)
+      .setArgs(classArgs)
+      .toLines();
+
+    // return CodeType.CLASS.setArgs(classArgs).write(
+    //   CodeType.MAIN.write(
+    //     CodeType.NEW.setArgs(board),
+    //     generateLoops(n)
+    //   )
+    // ).toLines();
   }
+
+  // private static Code generateLoops(int n) {
+
+  //   Code[] loops = new Code[n];
+
+  //   for (int i = 0; i < n; i++) {
+  //     HashMap<String, String> forLoop = new HashMap<>();
+  //     forLoop.put("var", "col" + n);
+  //     forLoop.put("max", "board.length");
+
+  //     HashMap<String, String> assignment = new HashMap<>();
+  //     assignment.put("var", "board[" + n + "][col" + n +"]");
+  //     assignment.put("val", "true");
+
+  //     loops[i] = CodeType.FOR_INT.setArgs(forLoop).write(
+  //         CodeType.ASSIGN.setArgs(assignment)
+  //       );
+  //   }
+
+  //   HashMap<String, String> printArgs = new HashMap<>();
+  //   printArgs.put("contents", "Are the queens safe?");
+
+  //   loops[n - 1].write(CodeType.PRINTLN.setArgs(printArgs));
+
+  //   for (int i = n - 1; i > 0; i--) {
+
+  //     HashMap<String, String> assignment = new HashMap<>();
+  //     assignment.put("var", "board[" + n + "][col" + n +"]");
+  //     assignment.put("val", "false");
+
+  //     loops[i - 1].write(
+  //       loops[i].write(CodeType.ASSIGN.setArgs(assignment))
+  //     );
+  //   }
+
+  //   return loops[0];
+  // }
 
   private static int parseN(String[] args) {
     if (args.length != 1)

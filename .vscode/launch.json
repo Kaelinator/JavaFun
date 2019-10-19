@@ -18,7 +18,7 @@
       "name": "QueensAreSafe",
       "request": "launch",
       "mainClass": "com.kaelkirk.QueensAreSafe",
-      "args": "1"
+      "args": "4"
     }
   ]
 }

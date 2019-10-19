@@ -1,7 +1,6 @@
-package com.kaelkirk;
+package com.kaelkirk.code;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -9,61 +8,24 @@ import java.util.stream.Collectors;
 /**
  * Makes writing code with code feel less meta
  */
-public enum Code {
+public class Code {
 
-  /**
-   * Class declaration <br />
-   * required arguments: <br />
-   * className - name of the class
-   */
-  CLASS(1, "public class &&className&& {", "}"),
-
-  /**
-   * Main method <br />
-   * no required arguments.
-   */
-  MAIN(1, "public static void main(String[] args) {", "}"),
-
-  /**
-   * println statement <br />
-   * required arguments: <br />
-   * content - what to print
-   */
-  PRINTLN(1, "System.out.println(&&contents&&);"),
-
-  /**
-   * declaration with initialization for an object <br />
-   * required arguments: <br />
-   * declaredType - the declared type of the object <br />
-   * var - identifier <br />
-   * type - the dynamic type of the object
-   */
-  NEW(1, "&&declaredType&& &&var&& = new &&type&&;"),
-
-  /**
-   * for int statement <br />
-   * required arguments: <br />
-   * var - identifier to loop over <br />
-   * max - maximum value (var < max)
-   */
-  FOR_INT(1, "for (int &&var&& = 0; &&var&& < &&max&&; &&var&&++) {", "}");
-
-  private static String INDENTATION = "  ";
+  private static final String INDENTATION = "  ";
 
   private ArrayList<String> lines;
   private Map<String, String> args;
   private int innerLine;
 
-  Code(int innerLine, String... lines) {
-    this.lines = new ArrayList<String>(Arrays.asList(lines));
-    this.innerLine = innerLine;
+  public Code(CodeType type) {
+    this.lines = type.lines;
+    this.innerLine = type.innerLine;
     args = null;
   }
 
   /**
-   * Embeds code into this code
+   * Embeds code(s) into this Code
    */
-  public Code write(Code ...code) {
+  public Code write(Code... code) {
 
     for (Code block : code) {
       lines.addAll(innerLine, block.toIndentedLines());
@@ -74,9 +36,9 @@ public enum Code {
   }
 
   /**
-   * Embeds line into this code
+   * Embeds line(s) into this code
    */
-  public Code write(String ...lines) {
+  public Code write(String... lines) {
 
     for (String line : lines)
       this.lines.add(innerLine++, INDENTATION + line);
