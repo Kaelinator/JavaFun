@@ -5,11 +5,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.List;
 
-import com.kaelkirk.code.Code;
-import com.kaelkirk.code.CodeType;
+import com.kaelkirk.code.Class;
+import com.kaelkirk.code.Method;
+import com.kaelkirk.code.Println;
 
 public class QueensAreSafe {
 
@@ -42,17 +42,12 @@ public class QueensAreSafe {
 
   private static List<String> generateCode(int n, String name) {
 
-    HashMap<String, String> classArgs = new HashMap<String, String>();
-    classArgs.put("className", name);
 
-    HashMap<String, String> board = new HashMap<>();
-    board.put("declaredType", "boolean[][]");
-    board.put("var", "board");
-    board.put("type", "boolean[8][8]");
-
-    return new Code(CodeType.CLASS)
-      .setArgs(classArgs)
-      .toLines();
+    return new Class(name).write(
+      Method.MAIN.write(
+        new Println("\"Hello World!\"")
+      )
+    ).toLines();
 
     // return CodeType.CLASS.setArgs(classArgs).write(
     //   CodeType.MAIN.write(
