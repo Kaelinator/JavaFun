@@ -9,6 +9,8 @@ public class QueensAreSafeExample {
 
     boolean[][] board = new boolean[8][8];
 
+    long x = 0;
+
     for (int col0 = 0; col0 < board.length; col0++) {
       board[0][col0] = true;
       for (int col1 = 0; col1 < board.length; col1++) {
@@ -25,6 +27,7 @@ public class QueensAreSafeExample {
                   board[6][col6] = true;
                   for (int col7 = 0; col7 < board.length; col7++) {
                     board[7][col7] = true;
+                    x++;
                     if (queensAreSafe(board))
                       printBoard(board);
                     board[7][col7] = false;
@@ -43,6 +46,7 @@ public class QueensAreSafeExample {
       }
       board[0][col0] = false;
     }
+    System.out.println(x);
   }
 
   private static void printBoard(boolean[][] board) {

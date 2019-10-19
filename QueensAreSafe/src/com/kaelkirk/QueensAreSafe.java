@@ -90,15 +90,12 @@ public class QueensAreSafe {
             new Return("true") //
         ), //
         new PrivateStaticMethod("int[][]", "findQueens", "boolean[][] board").write( //
-            new Declaration("int[][]", "queens", "new int[board.length][];"), //
+            new Declaration("int[][]", "queens", "new int[board.length][]"), //
             new Declaration("int", "lastQueenIndex", "0"), //
             new ForInt("row", "board.length").write( //
                 new ForInt("col", "board.length").write( //
                     new If("board[row][col] && lastQueenIndex < queens.length").write( //
                         new Assignment("queens[lastQueenIndex++]", "new int[] {row, col}") //
-                    ), //
-                    new If("board[row][col]").write( //
-                        new Return("null") //
                     ) //
                 ) //
             ), //

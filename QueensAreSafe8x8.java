@@ -1,7 +1,6 @@
-public class QueensAreSafe4x4 {
+public class QueensAreSafe8x8 {
   public static void main(String[] args) {
-    boolean[][] board = new boolean[4][4];
-    printBoard(board);
+    boolean[][] board = new boolean[8][8];
     for (int col0 = 0; col0 < board.length; col0++) {
       board[0][col0] = true;
       for (int col1 = 0; col1 < board.length; col1++) {
@@ -10,8 +9,24 @@ public class QueensAreSafe4x4 {
           board[2][col2] = true;
           for (int col3 = 0; col3 < board.length; col3++) {
             board[3][col3] = true;
-            if (queensAreSafe(board)) {
-              printBoard(board);
+            for (int col4 = 0; col4 < board.length; col4++) {
+              board[4][col4] = true;
+              for (int col5 = 0; col5 < board.length; col5++) {
+                board[5][col5] = true;
+                for (int col6 = 0; col6 < board.length; col6++) {
+                  board[6][col6] = true;
+                  for (int col7 = 0; col7 < board.length; col7++) {
+                    board[7][col7] = true;
+                    if (queensAreSafe(board)) {
+                      printBoard(board);
+                    }
+                    board[7][col7] = false;
+                  }
+                  board[6][col6] = false;
+                }
+                board[5][col5] = false;
+              }
+              board[4][col4] = false;
             }
             board[3][col3] = false;
           }
@@ -53,15 +68,12 @@ public class QueensAreSafe4x4 {
     return true;
   }
   private static int[][] findQueens(boolean[][] board) {
-    int[][] queens = new int[board.length][];;
+    int[][] queens = new int[board.length][];
     int lastQueenIndex = 0;
     for (int row = 0; row < board.length; row++) {
       for (int col = 0; col < board.length; col++) {
         if (board[row][col] && lastQueenIndex < queens.length) {
           queens[lastQueenIndex++] = new int[] {row, col};
-        }
-        if (board[row][col]) {
-          return null;
         }
       }
     }

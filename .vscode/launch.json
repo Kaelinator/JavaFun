@@ -2,9 +2,9 @@
   "configurations": [
     {
       "type": "java",
-      "name": "CodeLens (Launch) - QueensAreSafe4x4",
+      "name": "CodeLens (Launch) - QueensAreSafe8x8",
       "request": "launch",
-      "mainClass": "QueensAreSafe4x4"
+      "mainClass": "QueensAreSafe8x8"
     },
     {
       "type": "java",
@@ -15,16 +15,16 @@
     },
     {
       "type": "java",
-      "name": "CodeLens (Launch) - QueensAreSafe1x1",
+      "name": "CodeLens (Launch) - QueensAreSafe4x4",
       "request": "launch",
-      "mainClass": "QueensAreSafe1x1"
+      "mainClass": "QueensAreSafe4x4"
     },
     {
       "type": "java",
       "name": "QueensAreSafe",
       "request": "launch",
       "mainClass": "com.kaelkirk.QueensAreSafe",
-      "args": "4"
+      "args": "8"
     }
   ]
 }
