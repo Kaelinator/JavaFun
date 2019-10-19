@@ -160,8 +160,9 @@ public class QueensAreSafe {
     int n = -1;
     try {
       n = Integer.parseUnsignedInt(args[0]); // >= 0
+      if (n < 2) throw new Exception(); // > 1
     } catch (Exception e) {
-      System.err.println("N must be an integer >= 0.");
+      System.err.println("N must be an integer > 1.");
       exitWithUsage();
     }
 
