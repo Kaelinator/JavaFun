@@ -1,7 +1,5 @@
 package com.kaelkirk.code;
 
-import com.kaelkirk.code.Code;
-
 /**
  * WriteableCode
  */
@@ -17,7 +15,7 @@ public class WriteableCode extends Code {
   /**
    * Embeds code(s) into this Code
    */
-  public Code write(Code... code) {
+  public WriteableCode write(Code... code) {
 
     for (Code block : code) {
       lines.addAll(innerLine, block.toIndentedLines());
@@ -30,7 +28,7 @@ public class WriteableCode extends Code {
   /**
    * Embeds line(s) into this code
    */
-  public Code write(String... lines) {
+  public WriteableCode write(String... lines) {
 
     for (String line : lines)
       this.lines.add(innerLine++, INDENTATION + line);

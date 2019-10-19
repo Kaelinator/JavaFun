@@ -7,10 +7,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import com.kaelkirk.code.Assignment;
 import com.kaelkirk.code.Class;
+import com.kaelkirk.code.Code;
+import com.kaelkirk.code.Declaration;
 import com.kaelkirk.code.ForInt;
 import com.kaelkirk.code.Method;
 import com.kaelkirk.code.Println;
+import com.kaelkirk.code.WriteableCode;
 
 public class QueensAreSafe {
 
@@ -43,59 +47,40 @@ public class QueensAreSafe {
 
   private static List<String> generateCode(int n, String name) {
 
-
-    return new Class(name).write(
-      Method.MAIN.write(
-        new ForInt("i", "10").write(
-          new Println("\"i = \" + i")
-        )
-      )
+    return new Class(name).write( //
+        Method.MAIN.write( //
+            new Declaration("boolean[][]", "board", "new boolean[" + n + "][" + n + "]"), //
+            generateLoops(n) //
+        ) //
     ).toLines();
-
-    // return CodeType.CLASS.setArgs(classArgs).write(
-    //   CodeType.MAIN.write(
-    //     CodeType.NEW.setArgs(board),
-    //     generateLoops(n)
-    //   )
-    // ).toLines();
   }
 
-  // private static Code generateLoops(int n) {
+  private static Code generateLoops(int n) {
 
-  //   Code[] loops = new Code[n];
+    WriteableCode[] loops = new WriteableCode[n];
 
-  //   for (int i = 0; i < n; i++) {
-  //     HashMap<String, String> forLoop = new HashMap<>();
-  //     forLoop.put("var", "col" + n);
-  //     forLoop.put("max", "board.length");
+    for (int i = 0; i < n; i++) {
+      String itrVar = "col" + i;
+      loops[i] = new ForInt(itrVar, "board.length").write( //
+          new Assignment("board[" + i + "][" + itrVar + "]", "true") //
+      );
+    }
 
-  //     HashMap<String, String> assignment = new HashMap<>();
-  //     assignment.put("var", "board[" + n + "][col" + n +"]");
-  //     assignment.put("val", "true");
+    loops[n - 1].write( //
+        new Println("col" + (n - 1)), //
+        new Assignment("board[" + (n - 1) + "][col" + (n - 1) + "]", "false") //
+    );
 
-  //     loops[i] = CodeType.FOR_INT.setArgs(forLoop).write(
-  //         CodeType.ASSIGN.setArgs(assignment)
-  //       );
-  //   }
+    for (int i = n - 2; i >= 0; i--) {
+      String itrVar = "col" + i;
+      loops[i].write( //
+        loops[i + 1], //
+        new Assignment("board[" + i + "][" + itrVar + "]", "false") //
+      );
+    }
 
-  //   HashMap<String, String> printArgs = new HashMap<>();
-  //   printArgs.put("contents", "Are the queens safe?");
-
-  //   loops[n - 1].write(CodeType.PRINTLN.setArgs(printArgs));
-
-  //   for (int i = n - 1; i > 0; i--) {
-
-  //     HashMap<String, String> assignment = new HashMap<>();
-  //     assignment.put("var", "board[" + n + "][col" + n +"]");
-  //     assignment.put("val", "false");
-
-  //     loops[i - 1].write(
-  //       loops[i].write(CodeType.ASSIGN.setArgs(assignment))
-  //     );
-  //   }
-
-  //   return loops[0];
-  // }
+    return loops[0];
+  }
 
   private static int parseN(String[] args) {
     if (args.length != 1)
