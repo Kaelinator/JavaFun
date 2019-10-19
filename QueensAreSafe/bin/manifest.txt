@@ -1,0 +1,2 @@
+Main-Class: com.kaelkirk.QueensAreSafe
+Class-Path: queensaresafe.jar
