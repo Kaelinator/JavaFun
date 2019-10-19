@@ -29,7 +29,9 @@ public enum Code {
    * required arguments: <br />
    * content - what to print
    */
-  PRINTLN(1, "System.out.println(\"&&contents&&\");");
+  PRINTLN(1, "System.out.println(&&contents&&);"),
+  
+  FORINT(1, "for (int &&var&& = 0; &&var&& < &&max&&; &&var&&++) {", "}");
 
   private static String INDENTATION = "  ";
 
@@ -94,9 +96,6 @@ public enum Code {
       for (String param : args.keySet()) {
         line = line.replaceAll("&&" + param + "&&", args.get(param));
       }
-
-      if (line.matches(".*&&\\w+&&.*"))
-        throw new IllegalArgumentException(this + " requires more arguments.");
 
       lines.set(i, line);
     }

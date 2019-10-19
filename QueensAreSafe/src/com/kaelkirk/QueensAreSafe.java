@@ -43,11 +43,19 @@ public class QueensAreSafe {
     classArgs.put("className", name);
 
     HashMap<String, String> printlnArgs = new HashMap<String, String>();
-    printlnArgs.put("contents", "Hello World!");
+    printlnArgs.put("contents", "\"&&var&& = \" + &&var&&");
 
-    return Code.CLASS.setArgs(classArgs)
-    .write(Code.MAIN.write(Code.PRINTLN.setArgs(printlnArgs)))
-    .toLines();
+    HashMap<String, String> forArgs = new HashMap<String, String>();
+    forArgs.put("var", "x");
+    forArgs.put("max", "10");
+
+    return Code.CLASS.setArgs(classArgs).write(
+      Code.MAIN.write(
+        Code.FORINT.setArgs(forArgs).write(
+          Code.PRINTLN.setArgs(printlnArgs)
+        )
+      )
+    ).toLines();
   }
 
   private static int parseN(String[] args) {
