@@ -1,6 +1,9 @@
 package com.kaelkirk;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,9 +34,22 @@ public class QueensAreSafe {
 
     String name = String.format("QueensAreSafe%dx%d", n, n);
     List<String> code = generateCode(n, name);
-    Path file = writeToFile(code, name);
+    Path javaFile = writeToFile(code, name);
 
-    System.out.printf("Wrote file: %s", file.toAbsolutePath());
+    System.out.printf("Wrote file: %s.\n", javaFile.toAbsolutePath());
+
+    compileAndRun(javaFile, name);
+  }
+
+  private static void compileAndRun(Path javaFile, String name) {
+
+    try {
+      runProcess("javac " + javaFile.toAbsolutePath());
+      runProcess("java " + Paths.get(name).toString());
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
   }
 
   private static Path writeToFile(List<String> code, String name) {
@@ -148,5 +164,20 @@ public class QueensAreSafe {
   private static void exitWithUsage() {
     System.out.println("Usage: queensaresafe N");
     System.exit(1);
+  }
+
+  private static void runProcess(String command) throws Exception {
+    Process pro = Runtime.getRuntime().exec(command);
+    printLines(pro.getInputStream());
+    printLines(pro.getErrorStream());
+    pro.waitFor();
+  }
+
+  private static void printLines(InputStream ins) throws Exception {
+    String line = null;
+    BufferedReader in = new BufferedReader(new InputStreamReader(ins));
+    while ((line = in.readLine()) != null) {
+      System.out.println(line);
+    }
   }
 }
