@@ -13,6 +13,7 @@ import java.util.List;
 import com.kaelkirk.code.Assignment;
 import com.kaelkirk.code.Class;
 import com.kaelkirk.code.Code;
+import com.kaelkirk.code.Comment;
 import com.kaelkirk.code.Declaration;
 import com.kaelkirk.code.ForEach;
 import com.kaelkirk.code.ForInt;
@@ -70,6 +71,12 @@ public class QueensAreSafe {
   private static List<String> generateCode(int n, String name) {
 
     return new Class(name).write( //
+        new Comment().write( //
+          "@author Kael Kirk 2019", //
+          "Proof of concept. Just made this as a challenge. I promise I would never write code like this on my own,", //
+          "so please hire me. I need an internship this summer.", //
+          "Go to https://kaelkirk.com/ for some cool and good" //
+        ), //
         Method.MAIN.write( //
             new Declaration("boolean[][]", "board", "new boolean[" + n + "][" + n + "]"), //
             generateLoops(n) //

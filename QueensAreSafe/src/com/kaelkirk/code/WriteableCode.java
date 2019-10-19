@@ -5,7 +5,7 @@ package com.kaelkirk.code;
  */
 public class WriteableCode extends Code {
 
-  private int innerLine;
+  protected int innerLine;
   
   WriteableCode(int innerLine, String ...lines) {
     super(lines);

@@ -1,4 +1,10 @@
 public class QueensAreSafe8x8 {
+  /*
+   * @author Kael Kirk 2019
+   * Proof of concept. Just made this as a challenge. I promise I would never write code like this on my own,
+   * so please hire me. I need an internship this summer.
+   * Go to https://kaelkirk.com/ for some cool and good
+   */
   public static void main(String[] args) {
     boolean[][] board = new boolean[8][8];
     for (int col0 = 0; col0 < board.length; col0++) {
