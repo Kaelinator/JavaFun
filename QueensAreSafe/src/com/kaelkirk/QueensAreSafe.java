@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import com.kaelkirk.code.Class;
+import com.kaelkirk.code.ForInt;
 import com.kaelkirk.code.Method;
 import com.kaelkirk.code.Println;
 
@@ -45,7 +46,9 @@ public class QueensAreSafe {
 
     return new Class(name).write(
       Method.MAIN.write(
-        new Println("\"Hello World!\"")
+        new ForInt("i", "10").write(
+          new Println("\"i = \" + i")
+        )
       )
     ).toLines();
 
